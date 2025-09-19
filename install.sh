@@ -133,24 +133,32 @@ if [[ "$USE_PROXY" == "true" ]]; then
       # Certificate file
       while true; do
         read -p "Enter SSL certificate filename: ./nginx-files/certs/" SSL_CERTIFICATE_FILE
-        if [ -n "$SSL_CERTIFICATE_FILE" ]; then
+        if [ -n "$SSL_CERTIFICATE_FILE" ] && [[ ! "$SSL_CERTIFICATE_FILE" =~ ^[[:space:]]*$ ]]; then
           if check "$SSL_CERTIFICATE_FILE"; then
             break
           fi
         else
-          break
+          if [[ "$SSL_CERTIFICATE_FILE" =~ ^[[:space:]]*$ ]]; then
+            echo -e "\e[31mError: Filename cannot be empty or contain only whitespace.\e[0m"
+          else
+            break
+          fi
         fi
       done
 
       # Certificate key file
       while true; do
         read -p "Enter SSL certificate key filename: ./nginx-files/certs/" SSL_CERTIFICATE_KEY_FILE
-        if [ -n "$SSL_CERTIFICATE_KEY_FILE" ]; then
+        if [ -n "$SSL_CERTIFICATE_KEY_FILE" ] && [[ ! "$SSL_CERTIFICATE_KEY_FILE" =~ ^[[:space:]]*$ ]]; then
           if check "$SSL_CERTIFICATE_KEY_FILE"; then
             break
           fi
         else
-          break
+          if [[ "$SSL_CERTIFICATE_KEY_FILE" =~ ^[[:space:]]*$ ]]; then
+            echo -e "\e[31mError: Filename cannot be empty or contain only whitespace.\e[0m"
+          else
+            break
+          fi
         fi
       done
       echo "All required files found"
@@ -184,6 +192,12 @@ if [ "$USE_POSTGRES" == "true" ]; then
   done
   read -s -p "Enter Postgres password: " POSTGRES_PASSWORD
   echo
+  
+  while [[ -z "$POSTGRES_PASSWORD" || "$POSTGRES_PASSWORD" =~ ^[[:space:]]*$ ]]; do
+    echo -e "\e[31mError: Postgres password cannot be empty or contain only whitespace.\e[0m"
+    read -s -p "Enter Postgres password: " POSTGRES_PASSWORD
+    echo
+  done
 
   echo "Enabling Postgres"
   DOCKER_COMPOSE_COMMAND="$DOCKER_COMPOSE_COMMAND --profile postgres"
