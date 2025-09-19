@@ -132,7 +132,7 @@ if [[ "$USE_PROXY" == "true" ]]; then
     if [[ "$USE_NGINX" == "true" ]]; then
       # Certificate file
       while true; do
-        read -p "Enter SSL certificate filename: " SSL_CERTIFICATE_FILE
+        read -p "Enter SSL certificate filename: ./nginx-files/certs/" SSL_CERTIFICATE_FILE
         if [ -n "$SSL_CERTIFICATE_FILE" ]; then
           if check "$SSL_CERTIFICATE_FILE"; then
             break
@@ -144,7 +144,7 @@ if [[ "$USE_PROXY" == "true" ]]; then
 
       # Certificate key file
       while true; do
-        read -p "Enter SSL certificate key filename: " SSL_CERTIFICATE_KEY_FILE
+        read -p "Enter SSL certificate key filename: ./nginx-files/certs/" SSL_CERTIFICATE_KEY_FILE
         if [ -n "$SSL_CERTIFICATE_KEY_FILE" ]; then
           if check "$SSL_CERTIFICATE_KEY_FILE"; then
             break
