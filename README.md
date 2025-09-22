@@ -35,14 +35,16 @@ An installer for **Innoslate** using Docker Compose. It uses the following image
 
 If a step is not specified, you can use the defaults or provide your own values.
 
-### License
+License
+---
 
 Provide one of the following license types:
 
 - **Legacy license**
 - **Docker license**
 
-### Database
+Database
+---
 
 #### Using an External Database
 Supply your own connection details during setup.
@@ -57,8 +59,7 @@ Use the following values:
 - **Database Username:** `postgres`
 - **Database Password:** the password you provided to the Docker Compose installer
 
+Filesystem
 ---
-
-## Filesystem
 
 - **File Storage Path:** `/usr/local/innoslate/filestore`
