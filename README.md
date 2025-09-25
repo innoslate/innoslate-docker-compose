@@ -13,7 +13,7 @@ An installer for **Innoslate** using Docker Compose. It uses the following image
 - Docker and Docker Compose installed
 - Bash shell (macOS/Linux; on Windows use WSL or Git Bash)
 - Optional Create Certs
-  -  openssl genrsa -out server.key 2048
+  - openssl genrsa -out server.key 2048
   - openssl req -new -key server.key -out server.csr
   - openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt
 ---
@@ -21,16 +21,19 @@ An installer for **Innoslate** using Docker Compose. It uses the following image
 ## Installation
 
 1. Change to the directory containing `install.sh`:
-
-       cd path/to/installer
+   ```sh
+   cd path/to/installer
+   ```
 
 2. (macOS/Linux) Make the script executable:
-
-       chmod +x ./install.sh
+   ```sh
+   chmod +x ./install.sh
+   ```
 
 3. Run the installer:
-
-       ./install.sh
+   ```sh
+   ./install.sh
+   ```
 
 ---
 
