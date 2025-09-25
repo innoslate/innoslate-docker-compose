@@ -162,8 +162,13 @@ if [[ "$USE_PROXY" == "true" ]]; then
         fi
       done
       echo "All required files found"
+      sed -e "s/{CERT_FILE}/$SSL_CERTIFICATE_FILE/g" \
+          -e "s/{CERT_KEY_FILE}/$SSL_CERTIFICATE_KEY_FILE/g" \
+          ./nginx-files/nginx_https.conf > ./config/nginx.conf
     fi
     FILE_SUFFIX=_https
+  else
+    cp ./nginx-files/nginx.conf ./config/nginx.conf
   fi
 fi
 DOCKER_COMPOSE_COMMAND="FILE_SUFFIX=${FILE_SUFFIX} $DOCKER_COMPOSE_COMMAND"
