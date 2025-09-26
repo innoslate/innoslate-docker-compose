@@ -60,7 +60,7 @@ Supply your own connection details during setup.
 Use the following values:
 
 - **Database Type:** `PostgreSQL`
-- **Database Host:** `postgres`
+- **Database Host:** `innoslate-postgres` (PostgreSQL's Docker container name)
 - **Database Port:** *(leave empty)*
 - **Database Name:** the name you provided to the Docker Compose installer
 - **Database Username:** `postgres`
