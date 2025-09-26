@@ -13,6 +13,7 @@ trap '
     error_reported=1
   fi
 ' ERR
+mkdir -p ./config
 
 # Check for existing containers
 CONTAINERS_EXIST=false
@@ -218,7 +219,6 @@ if [ "$USE_PROXY" == "true" ]; then
   fi
   DOCKER_COMPOSE_COMMAND+=" --profile innoslate-no-port"
 
-  mkdir -p ./config
   sed "s/{PROXYPORT}/$HOST_PORT/g" ./innoslate-files/server_proxy${FILE_SUFFIX}.xml > ./config/server.xml
 else
   DOCKER_COMPOSE_COMMAND+=" --profile innoslate"
