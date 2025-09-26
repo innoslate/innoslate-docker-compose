@@ -163,13 +163,40 @@ if [[ "$USE_PROXY" == "true" ]]; then
         fi
       done
       echo "All required files found"
+      
+      # Ask for max upload size
+      read -p "Enter max upload size in MB (default: 100): " UPLOAD_LIMIT
+      while [[ ! -z "$UPLOAD_LIMIT" && ! "$UPLOAD_LIMIT" =~ ^[0-9]+$ ]]; do
+        echo -e "\e[31mInvalid upload limit: $UPLOAD_LIMIT. Please enter a number.\e[0m"
+        read -p "Enter max upload size in MB (default: 100): " UPLOAD_LIMIT
+      done
+      
+      if [[ -z "$UPLOAD_LIMIT" || "$UPLOAD_LIMIT" =~ ^[[:space:]]*$ ]]; then
+        echo "Using default upload limit: 100MB"
+        UPLOAD_LIMIT=100
+      fi
+      
       sed -e "s/{CERT_FILE}/$SSL_CERTIFICATE_FILE/g" \
           -e "s/{CERT_KEY_FILE}/$SSL_CERTIFICATE_KEY_FILE/g" \
+          -e "s/{UPLOAD_LIMIT}/$UPLOAD_LIMIT/g" \
           ./nginx-files/nginx_https.conf > ./config/nginx.conf
     fi
     FILE_SUFFIX=_https
   else
-    cp ./nginx-files/nginx.conf ./config/nginx.conf
+    # Ask for max upload size
+    read -p "Enter max upload size in MB (default: 100): " UPLOAD_LIMIT
+    while [[ ! -z "$UPLOAD_LIMIT" && ! "$UPLOAD_LIMIT" =~ ^[0-9]+$ ]]; do
+      echo -e "\e[31mInvalid upload limit: $UPLOAD_LIMIT. Please enter a number.\e[0m"
+      read -p "Enter max upload size in MB (default: 100): " UPLOAD_LIMIT
+    done
+    
+    if [[ -z "$UPLOAD_LIMIT" || "$UPLOAD_LIMIT" =~ ^[[:space:]]*$ ]]; then
+      echo "Using default upload limit: 100MB"
+      UPLOAD_LIMIT=100
+    fi
+    
+    sed -e "s/{UPLOAD_LIMIT}/$UPLOAD_LIMIT/g" \
+        ./nginx-files/nginx.conf > ./config/nginx.conf
   fi
 fi
 DOCKER_COMPOSE_COMMAND="FILE_SUFFIX=${FILE_SUFFIX} $DOCKER_COMPOSE_COMMAND"
