@@ -1,4 +1,5 @@
 # Default ignored files
 .idea/*
 config/*
+nginx-files/certs*
 innoslate-docker-compose.iml
