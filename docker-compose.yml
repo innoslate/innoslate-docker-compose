@@ -21,7 +21,7 @@ services:
       - postgres
 
   innoslate:
-    image: innoslate/innoslate:4.12.1.0
+    image: innoslate/innoslate:4.12.3.0
     container_name: innoslate
     networks:
       - innonetwork
@@ -33,7 +33,7 @@ services:
       - innoslate
 
   innoslate-no-port:
-    image: innoslate/innoslate:4.12.1.0
+    image: innoslate/innoslate:4.12.3.0
     container_name: innoslate
     networks:
       - innonetwork
